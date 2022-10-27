@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Logo from '../../../Assets/Logo/Logo.png';
 import {CiDark, CiLight} from 'react-icons/ci';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 import './Header.css';
+import { Link } from 'react-router-dom';
 const Header = () => {
+
+    const {user} = useContext(AuthContext)
+
+
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -21,7 +27,10 @@ const Header = () => {
                     </div>
 
                     <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                        {
+                            user?.uid?
+                            <div>
+                                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                             <img src="https://placeimg.com/80/80/people"  alt='Profile'/>
                             </div>
@@ -36,6 +45,12 @@ const Header = () => {
                         <li><p>Settings</p></li>
                         <li><p>Logout</p></li>
                     </ul>
+                            </div>
+                            :
+                            <>
+                                <small><Link to={'/login'}>Log In</Link></small>
+                            </>
+                        }
                     </div>
 
                     {
