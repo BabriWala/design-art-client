@@ -1,6 +1,33 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 const Register = () => {
+
+  const {createUser} = useContext(AuthContext)
+
+  const handleSubmit = event => {
+    console.log(event)
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const photoURL = form.photoURL.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(name, photoURL, email, password);
+
+    createUser(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+            // setError('');
+            form.reset();
+        })
+        .catch(e => {
+            console.error(e);
+            // setError(e.message);
+        });
+}
+
     return (
         <div>
     <div className="relative">
@@ -51,21 +78,37 @@ const Register = () => {
                 <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                   Sign up for updates
                 </h3>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-1 sm:mb-2">
                     <label
-                      htmlFor="displayName"
+                      htmlFor="name"
                       className="inline-block mb-1 font-medium"
                     >
-                      Display Name
+                      Full Name
                     </label>
                     <input
                       placeholder="John"
                       required
                       type="text"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                      id="displayName"
-                      name="displayName"
+                      id="name"
+                      name="name"
+                    />
+                  </div>
+                  <div className="mb-1 sm:mb-2">
+                    <label
+                      htmlFor="photoURL"
+                      className="inline-block mb-1 font-medium"
+                    >
+                      Photo Url
+                    </label>
+                    <input
+                      placeholder="photoURL"
+                      required
+                      type="text"
+                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                      id="photoURL"
+                      name="photoURL"
                     />
                   </div>
                   <div className="mb-1 sm:mb-2">

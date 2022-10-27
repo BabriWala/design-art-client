@@ -2,22 +2,57 @@ import React, { useContext} from 'react';
 import {SiGmail} from 'react-icons/si';
 import {BsGithub} from 'react-icons/bs';
 import './Login.css'
-import { Link } from 'react-router-dom';
-import { GoogleAuthProvider } from "firebase/auth";
+import { Link, useNavigate } from 'react-router-dom';
+import { GoogleAuthProvider,GithubAuthProvider } from "firebase/auth";
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 
 const Login = () => {
-  const {providerLogin} = useContext(AuthContext)
+  const navigate = useNavigate();
+  const {providerLogin, signIn} = useContext(AuthContext)
   const googleProvider = new GoogleAuthProvider()
+  const githubProvider = new GithubAuthProvider()
   const handleGoogleSignIn = () => {
     providerLogin(googleProvider)
         .then(result => {
             const user = result.user;
-            console.log(user);
+            console.log(user)
+            navigate('/')
         })
         .catch(error => console.error(error))
-}
+  }
+  const handleGithubLogIn = () => {
+    providerLogin(githubProvider)
+        .then(result => {
+            const user = result.user;
+            console.log(user)
+            navigate('/')
+        })
+        .catch(error => console.error(error))
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signIn(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+            form.reset();
+            navigate('/')
+            // setError('');
+        })
+        .catch(error => {
+            console.error(error)
+            // setError(error.message);
+        })
+        .finally(() => {
+            // setLoading(false);
+        })
+  }
 
     return (
         <div>
@@ -45,7 +80,7 @@ const Login = () => {
                 <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                   Log In
                 </h3>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-1 sm:mb-2">
                     <label
                       htmlFor="email"
@@ -64,7 +99,7 @@ const Login = () => {
                   </div>
                   <div className="mb-1 sm:mb-2">
                     <label
-                      htmlFor="passowrd"
+                      htmlFor="password"
                       className="inline-block mb-1 font-medium"
                     >
                       Password
@@ -74,8 +109,8 @@ const Login = () => {
                       required
                       type="password"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                      id="passowrd"
-                      name="passowrd"
+                      id="password"
+                      name="password"
                     />
                   </div>
                   <div className="mt-4 mb-2 sm:mb-4">
@@ -92,7 +127,7 @@ const Login = () => {
                   <hr />
                   <div className='social-login'>
                     < SiGmail onClick={handleGoogleSignIn}/>
-                    <BsGithub/>
+                    <BsGithub onClick={handleGithubLogIn}/>
                   </div>
                   <div>
                     <p>Don't You have registered yet? Kindly <Link to={'/register'}>Register</Link></p>
