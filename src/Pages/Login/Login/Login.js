@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import {SiGmail} from 'react-icons/si';
 import {BsGithub} from 'react-icons/bs';
 import './Login.css'
 import { Link } from 'react-router-dom';
+import { GoogleAuthProvider } from "firebase/auth";
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 
 const Login = () => {
+  const {providerLogin} = useContext(AuthContext)
+  const googleProvider = new GoogleAuthProvider()
+  const handleGoogleSignIn = () => {
+    providerLogin(googleProvider)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+        })
+        .catch(error => console.error(error))
+}
+
     return (
         <div>
     <div className="relative">
@@ -78,7 +91,7 @@ const Login = () => {
                   </p>
                   <hr />
                   <div className='social-login'>
-                    <SiGmail/>
+                    < SiGmail onClick={handleGoogleSignIn}/>
                     <BsGithub/>
                   </div>
                   <div>
