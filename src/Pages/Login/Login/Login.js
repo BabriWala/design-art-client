@@ -14,12 +14,12 @@ const Login = () => {
   const githubProvider = new GithubAuthProvider();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  console.log(from);
+  // console.log(from);
   const handleGoogleSignIn = () => {
     providerLogin(googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         // navigate('/')
         navigate(from, { replace: true });
       })
@@ -29,12 +29,13 @@ const Login = () => {
     providerLogin(githubProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         // navigate('/')
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
+        setError(error.message);
       });
   };
 
@@ -47,7 +48,7 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         form.reset();
         // navigate('/')
         navigate(from, { replace: true });

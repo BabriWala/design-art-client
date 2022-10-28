@@ -4,7 +4,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 const CheckOut = () => {
     const course = useLoaderData()
-    console.log(course)
+    // console.log(course)
     const handleToast = ()=>{
         toast("Wow You have Enrolled It. Wait For Confirmation Message");
     }

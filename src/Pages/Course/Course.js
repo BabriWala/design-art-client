@@ -7,7 +7,7 @@ import './Course.css'
 const Course = () => {
 
     const course = useLoaderData()
-    console.log(course)
+    // console.log(course)
 
     return (
         <div className='flex flex-col lg:flex-row'>

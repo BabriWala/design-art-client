@@ -41,7 +41,7 @@ const FullDetails = () => {
                     </svg>
                   </span>{' '}
                   {course.title}
-                  <Pdf targetRef={ref} filename="code-example.pdf">
+                  <Pdf targetRef={ref} filename="course-details.pdf">
                     {({ toPdf }) => <button onClick={toPdf}>{<FiDownload className='ml-5' />}</button>}
                   </Pdf>
                   

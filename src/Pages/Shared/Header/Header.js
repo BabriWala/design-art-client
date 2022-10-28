@@ -251,6 +251,14 @@ const Header = () => {
                           )}
                         </div>
                       </li>
+                      <li>
+                        {
+                          <>
+                            {" "}
+                            <CiDark /> <CiLight />
+                          </>
+                        }
+                      </li>
                     </ul>
                   </nav>
                 </div>
