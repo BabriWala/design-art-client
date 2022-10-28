@@ -55,7 +55,7 @@ const FullDetails = () => {
                     <img src={course.image_url}  alt={course.name}/>
                 </div>
               </div>
-              <Link to={'/checkout'}><button>Enrolled Course</button></Link>
+              <Link to={'/checkout'} className="text-center w-full mx-auto block mt-10"><button className="btn btn-outline">Get Premium Access</button></Link>
             </div>
         </div>
     );
