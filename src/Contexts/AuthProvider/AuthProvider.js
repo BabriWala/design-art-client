@@ -24,14 +24,6 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    // const updateUserProfile = (profile) => {
-    //     return updateProfile(auth.currentUser, profile);
-    // }
-
-    // const verifyEmail = () =>{
-    //     return sendEmailVerification(auth.currentUser);
-    // }
-
     const logOut = () => {
         setLoading(true);
         return signOut(auth);
@@ -41,6 +33,7 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log('inside auth state change', currentUser);
                 setUser(currentUser);
+                setLoading(false);
         });
 
         return () => {
@@ -55,8 +48,6 @@ const AuthProvider = ({ children }) => {
         setLoading,
         providerLogin, 
         logOut, 
-        // updateUserProfile,
-        // verifyEmail,
         createUser, 
         signIn 
     };

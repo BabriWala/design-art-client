@@ -2,23 +2,28 @@ import React, { useContext, useState} from 'react';
 import {SiGmail} from 'react-icons/si';
 import {BsGithub} from 'react-icons/bs';
 import './Login.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider,GithubAuthProvider } from "firebase/auth";
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 
 const Login = () => {
+  
   const [error, setError] = useState();
   const navigate = useNavigate();
   const {providerLogin, signIn} = useContext(AuthContext)
   const googleProvider = new GoogleAuthProvider()
   const githubProvider = new GithubAuthProvider()
+  const location = useLocation(); 
+  const from = location.state?.from?.pathname || '/';
+  console.log(from)
   const handleGoogleSignIn = () => {
     providerLogin(googleProvider)
         .then(result => {
             const user = result.user;
             console.log(user)
-            navigate('/')
+            // navigate('/')
+            navigate(from, {replace: true})
         })
         .catch(error => console.error(error))
   }
@@ -27,7 +32,8 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             console.log(user)
-            navigate('/')
+           // navigate('/')
+           navigate(from, {replace: true})
         })
         .catch(error => {
           console.error(error)
@@ -46,7 +52,8 @@ const Login = () => {
             const user = result.user;
             console.log(user);
             form.reset();
-            navigate('/')
+           // navigate('/')
+           navigate(from, {replace: true})
             setError('');
         })
         .catch(error => {
