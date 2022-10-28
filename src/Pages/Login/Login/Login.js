@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext, useState} from 'react';
 import {SiGmail} from 'react-icons/si';
 import {BsGithub} from 'react-icons/bs';
 import './Login.css'
@@ -8,6 +8,7 @@ import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 
 const Login = () => {
+  const [error, setError] = useState();
   const navigate = useNavigate();
   const {providerLogin, signIn} = useContext(AuthContext)
   const googleProvider = new GoogleAuthProvider()
@@ -28,7 +29,10 @@ const Login = () => {
             console.log(user)
             navigate('/')
         })
-        .catch(error => console.error(error))
+        .catch(error => {
+          console.error(error)
+
+        })
   }
 
   const handleSubmit = event => {
@@ -43,11 +47,11 @@ const Login = () => {
             console.log(user);
             form.reset();
             navigate('/')
-            // setError('');
+            setError('');
         })
         .catch(error => {
             console.error(error)
-            // setError(error.message);
+            setError(error.message);
         })
         .finally(() => {
             // setLoading(false);
@@ -121,6 +125,10 @@ const Login = () => {
                       Log In
                     </button>
                   </div>
+                  {
+                    error ? <p>{error}</p>
+                    : ''
+                  }
                   <p className="text-xs text-center text-gray-600 sm:text-sm">
                     Log With Other System
                   </p>
