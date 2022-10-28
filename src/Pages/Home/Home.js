@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 
 const Home = () => {
     return (
@@ -18,7 +19,7 @@ const Home = () => {
             <p
               className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-blcak transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             >
-              Check It Out
+              <Link to={'/course'}>Check It Out</Link>
             </p>
           </div>
         </div>

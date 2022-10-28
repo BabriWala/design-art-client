@@ -9,6 +9,7 @@ import FullDetails from "../../Pages/Course/FullDetails";
 import CheckOut from "../../Pages/CheckOut/CheckOut";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 import Blog from "../../Pages/Blog/Blog";
+import FAQ from "../../Pages/FAQ/FAQ";
 
 export const routes = createBrowserRouter([
     {
@@ -16,40 +17,44 @@ export const routes = createBrowserRouter([
         element: <Main></Main>,
         children: [
             {
-               path: '/login' ,
-               element: <Login></Login>
-            },
-            {
                 path:'/',
                 element: <Home></Home>
             },
             {
-                path: '*',
-                element: <NotFound></NotFound>
+                path: '/login' ,
+                element: <Login></Login>
             },
             {
                 path: '/register',
                 element: <Register></Register>
             },
             {
+                path: '/blog',
+                element: <Blog></Blog>
+            },
+            {
+                path: '/faq',
+                element: <FAQ></FAQ>
+            },
+            {
                 path: '/course',
                 element: <Course></Course>,
-                loader: ()=> fetch('http://localhost:5000/course')
+                loader: ()=> fetch('https://design-art-server.vercel.app/course')
             },
             {
                 path: '/course/:id',
                 element: <FullDetails></FullDetails>,
-                loader: ({params}) => fetch(`http://localhost:5000/course/${params.id}`)
+                loader: ({params}) => fetch(`https://design-art-server.vercel.app/course/${params.id}`)
             },
             {
                 path: '/checkout/:id',
                 element: <PrivateRoutes><CheckOut></CheckOut></PrivateRoutes>,
-                loader: ({params}) => fetch(`http://localhost:5000/course/${params.id}`)
+                loader: ({params}) => fetch(`https://design-art-server.vercel.app/course/${params.id}`)
             },
             {
-                path: '/blog',
-                element: <Blog></Blog>
-            }
+                path: '*',
+                element: <NotFound></NotFound>
+            },  
         ]
     }
 ])
